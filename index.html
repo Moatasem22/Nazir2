@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>لمسات كار · النظام المحاسبي المتكامل</title>
+    <!-- ربط الخطوط والأيقونات -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- ربط ملف التنسيقات الخارجي -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="android-frame">
+    <div class="app-screen" id="appScreen">
+
+        <!-- الشريط العلوي -->
+        <div class="app-bar">
+            <button class="menu-btn" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <div class="logo">
+                <h2>لمسات كار</h2>
+                <span>لزينة السيارات · 1447هـ</span>
+            </div>
+            <i class="fas fa-bell notify-icon" id="notifyBell"></i>
+        </div>
+
+        <!-- القائمة الجانبية -->
+        <div class="side-drawer" id="sideDrawer">
+            <div class="drawer-header">
+                <h3>القائمة الرئيسية</h3>
+                <button class="close-drawer" id="closeDrawer"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="drawer-item active" data-page="dashboard"><i class="fas fa-chart-pie"></i> لوحة التحكم</div>
+            <div class="drawer-item" data-page="workorders"><i class="fas fa-car"></i> أوامر العمل</div>
+            <div class="drawer-item" data-page="services"><i class="fas fa-cut"></i> الخدمات</div>
+            <div class="drawer-item" data-page="inventory"><i class="fas fa-boxes"></i> المخزون</div>
+            <div class="drawer-item" data-page="workers"><i class="fas fa-users"></i> العمال</div>
+            <div class="drawer-item" data-page="accounting"><i class="fas fa-calculator"></i> المحاسبة</div>
+            <div class="drawer-item" data-page="invoices"><i class="fas fa-file-invoice"></i> الفواتير</div>
+            <div class="drawer-item" data-page="payments"><i class="fas fa-credit-card"></i> المدفوعات</div>
+            <div class="drawer-item" data-page="reports"><i class="fas fa-chart-line"></i> التقارير</div>
+            <div class="drawer-item" data-page="settings"><i class="fas fa-cog"></i> الإعدادات</div>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <!-- المحتوى الرئيسي: جميع الصفحات -->
+        <div class="content" id="mainContent">
+            <!-- ========== صفحة لوحة التحكم ========== -->
+            <div class="page active-page" id="page-dashboard">
+                <div class="kpi-grid">
+                    <div class="kpi-item"><span class="kpi-value">18,450</span> <span class="kpi-label">مبيعات اليوم</span></div>
+                    <div class="kpi-item"><span class="kpi-value">5,230</span> <span class="kpi-label">صافي الربح</span></div>
+                    <div class="kpi-item"><span class="kpi-value">14</span> <span class="kpi-label">سيارات مُنجزة</span></div>
+                    <div class="kpi-item"><span class="kpi-value">6</span> <span class="kpi-label">تحت التنفيذ</span></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-chart-simple"></i> أكثر خدمة مبيعاً</div>
+                    <div class="item-row"><span>تنجيد كامل</span> <span class="badge success">28 عملية</span></div>
+                    <div class="item-row"><span>تركيب شاشات</span> <span class="badge success">19 عملية</span></div>
+                    <div class="item-row"><span>عزل حراري</span> <span class="badge success">12 عملية</span></div>
+                    <div class="progress-bar" style="height:6px; background:#1A2A3A; border-radius:10px; margin-top:8px;"><div style="width:75%; height:6px; background:#C5A028; border-radius:10px;"></div></div>
+                    <div style="font-size:12px; margin-top:6px;">نمو ▲18% عن الشهر الماضي</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-exclamation-triangle" style="color:#E67E22;"></i> تنبيهات المخزون</div>
+                    <div class="item-row"><span>جلد طبيعي أسود</span> <span class="alert-badge">متبقي 2</span></div>
+                    <div class="item-row"><span>إسفنج عالي الكثافة</span> <span class="alert-badge">متبقي 5</span></div>
+                    <div class="item-row"><span>لمبات LED (أبيض)</span> <span class="alert-badge">نفذ</span></div>
+                    <button class="btn-outline" style="width:100%; margin-top:10px;" id="viewInventoryBtn">عرض المخزون</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-clock"></i> فواتير غير مدفوعة</div>
+                    <div class="item-row"><span>#WO-2410 · أحمد العلي</span> <span class="badge warning">2,450 ريال</span></div>
+                    <div class="item-row"><span>#WO-2408 · خالد القحطاني</span> <span class="badge warning">4,100 ريال</span></div>
+                    <button class="btn-gold"><i class="fab fa-whatsapp"></i> إرسال تذكير</button>
+                </div>
+            </div>
+
+            <!-- ========== صفحة أوامر العمل ========== -->
+            <div class="page" id="page-workorders">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-plus-circle"></i> أمر عمل جديد</div>
+                    <input class="input-field" placeholder="اسم العميل" value="ماجد الحربي">
+                    <input class="input-field" placeholder="نوع السيارة / اللوحة" value="تويوتا لاند كروزر · أ ب ج 5678">
+                    <select class="input-field">
+                        <option>اختر الخدمة</option>
+                        <option>تنجيد كامل</option>
+                        <option>تنجيد مقاعد</option>
+                        <option>تركيب أرضيات</option>
+                    </select>
+                    <div style="display: flex; gap:8px;">
+                        <input class="input-field" placeholder="تكلفة المواد" value="950">
+                        <input class="input-field" placeholder="أجور عمال" value="600">
+                    </div>
+                    <button class="btn-gold" id="saveWorkOrder">حفظ الأمر</button>
+                </div>
+                <div class="card">
+                    <div class="card-title">قائمة أوامر العمل</div>
+                    <div class="item-row">
+                        <div><b>#WO-2412</b> نيسان باترول</div>
+                        <span class="badge warning">جاري</span>
+                    </div>
+                    <div class="item-row">
+                        <div><b>#WO-2411</b> مرسيدس E300</div>
+                        <span class="badge success">مكتمل</span>
+                    </div>
+                    <div class="item-row">
+                        <div><b>#WO-2409</b> هيونداي النترا</div>
+                        <span class="badge neutral">مسلّم</span>
+                    </div>
+                    <div class="item-row">
+                        <div><b>#WO-2407</b> فورد F150</div>
+                        <span class="badge warning">جاري</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة الخدمات ========== -->
+            <div class="page" id="page-services">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-tags"></i> الخدمات المقدمة</div>
+                    <div class="services-grid">
+                        <div class="service-card"><span class="service-title">تنجيد كامل</span> <div>2,400 ريال</div><small>تكلفة 1,100 · هامش 54%</small></div>
+                        <div class="service-card"><span class="service-title">تنجيد مقاعد</span> <div>950 ريال</div><small>تكلفة 420 · هامش 55%</small></div>
+                        <div class="service-card"><span class="service-title">تركيب أرضيات</span> <div>600 ريال</div><small>تكلفة 250 · هامش 58%</small></div>
+                        <div class="service-card"><span class="service-title">عزل حراري</span> <div>1,800 ريال</div><small>تكلفة 820 · هامش 54%</small></div>
+                        <div class="service-card"><span class="service-title">تركيب شاشات</span> <div>1,200 ريال</div><small>تكلفة 680 · هامش 43%</small></div>
+                        <div class="service-card"><span class="service-title">إضاءة LED</span> <div>450 ريال</div><small>تكلفة 200 · هامش 55%</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة المخزون ========== -->
+            <div class="page" id="page-inventory">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-search"></i> بحث في المخزون</div>
+                    <input class="input-field" placeholder="اسم المادة أو المورد">
+                </div>
+                <div class="card">
+                    <div class="card-title">المواد</div>
+                    <div class="item-row"><span>جلد طبيعي أحمر</span> <span>7 قطع · 890 ريال <span class="badge neutral">الحد: 3</span></span></div>
+                    <div class="item-row"><span>جلد طبيعي أسود</span> <span>2 قطع · 890 ريال <span class="badge danger">منخفض</span></span></div>
+                    <div class="item-row"><span>إسفنج عالي الكثافة</span> <span>8 قطع · 240 ريال <span class="badge neutral">الحد: 4</span></span></div>
+                    <div class="item-row"><span>لمبات LED (أبيض)</span> <span>0 علب · 45 ريال <span class="badge danger">نفذ</span></span></div>
+                    <div class="item-row"><span>مادة لاصقة</span> <span>12 علبة · 32 ريال <span class="badge neutral">الحد: 5</span></span></div>
+                </div>
+                <button class="btn-gold">+ إضافة مادة</button>
+            </div>
+
+            <!-- ========== صفحة العمال ========== -->
+            <div class="page" id="page-workers">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-user-plus"></i> تسجيل عامل</div>
+                    <input class="input-field" placeholder="الاسم" value="محمد العتيبي">
+                    <select class="input-field"><option>تنجيد</option><option>كهرباء</option><option>عوازل</option></select>
+                    <input class="input-field" placeholder="الأجر اليومي / النسبة" value="250 ريال">
+                    <button class="btn-gold">حفظ</button>
+                </div>
+                <div class="card">
+                    <div class="card-title">قائمة العمال</div>
+                    <div class="item-row"><span>محمد (تنجيد)</span> <span>250/يوم · 22 مشروع</span></div>
+                    <div class="item-row"><span>سعيد (كهرباء)</span> <span>280/يوم · 18 مشروع</span></div>
+                    <div class="item-row"><span>خالد (عوازل)</span> <span>5% نسبة · 14 مشروع</span></div>
+                    <div class="item-row"><span>أحمد (تنجيد)</span> <span>230/يوم · 20 مشروع</span></div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة المحاسبة ========== -->
+            <div class="page" id="page-accounting">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-book"></i> دفتر الأستاذ</div>
+                    <div class="item-row"><span>النقدية</span> <span>42,500 ريال</span></div>
+                    <div class="item-row"><span>البنك الأهلي</span> <span>128,300 ريال</span></div>
+                    <div class="item-row"><span>المشتريات</span> <span>22,150 ريال</span></div>
+                    <div class="item-row"><span>المبيعات</span> <span>97,800 ريال</span></div>
+                    <div class="item-row"><span>مصروفات الرواتب</span> <span>14,200 ريال</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-pen"></i> قيود اليومية</div>
+                    <div class="item-row"><span>فاتورة #INV-124</span> <span>مدين: عميل / دائن: مبيعات</span></div>
+                    <div class="item-row"><span>شراء مواد</span> <span>مدين: مخزون / دائن: نقدية</span></div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة الفواتير ========== -->
+            <div class="page" id="page-invoices">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-file-invoice"></i> فاتورة نموذجية (ZATCA)</div>
+                    <div class="invoice-sample ar">
+                        <div style="display:flex; justify-content: space-between;">
+                            <span><b>لمسات كار</b></span> <span>رقم: INV-2411</span>
+                        </div>
+                        <div style="font-size:12px;">العميل: فيصل المطيري</div>
+                        <div style="border-top:1px dashed #C5A028; margin:8px 0;"></div>
+                        <div>تنجيد كامل: 2,100</div>
+                        <div>ضريبة 15%: 315</div>
+                        <div style="font-weight:bold;">الإجمالي: 2,415 ريال</div>
+                        <div class="qr-box">QR</div>
+                        <div style="font-size:10px;">الرقم الضريبي: 310876543210</div>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:12px;">
+                        <button class="btn-outline"><i class="fas fa-download"></i> XML</button>
+                        <button class="btn-outline"><i class="fab fa-whatsapp"></i> واتساب</button>
+                        <button class="btn-gold" style="flex:1;">إصدار فاتورة</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">آخر الفواتير</div>
+                    <div class="item-row"><span>INV-2410</span> <span>1,850 ريال</span> <span class="badge success">مدفوعة</span></div>
+                    <div class="item-row"><span>INV-2409</span> <span>3,220 ريال</span> <span class="badge warning">غير مدفوعة</span></div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة المدفوعات ========== -->
+            <div class="page" id="page-payments">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-money-bill"></i> تسجيل دفعة</div>
+                    <select class="input-field"><option>العميل / الفاتورة</option><option>أحمد العلي - 2,450</option></select>
+                    <input class="input-field" placeholder="المبلغ" value="2000">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <span class="badge neutral">نقدي</span>
+                        <span class="badge neutral">شبكة</span>
+                        <span class="badge neutral">تحويل</span>
+                        <span class="badge neutral">آجل</span>
+                    </div>
+                    <button class="btn-gold">تسديد</button>
+                </div>
+                <div class="card">
+                    <div class="card-title">الذمم المدينة</div>
+                    <div class="item-row"><span>أحمد العلي</span> <span class="badge warning">2,450</span></div>
+                    <div class="item-row"><span>خالد القحطاني</span> <span class="badge warning">4,100</span></div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة التقارير ========== -->
+            <div class="page" id="page-reports">
+                <div class="card">
+                    <div class="card-title">قائمة الدخل (شهرية)</div>
+                    <div class="item-row"><span>الإيرادات</span> <span>97,800</span></div>
+                    <div class="item-row"><span>تكلفة المواد</span> <span>32,400</span></div>
+                    <div class="item-row"><span>أجور العمال</span> <span>14,200</span></div>
+                    <div class="item-row"><span>مصاريف تشغيل</span> <span>8,900</span></div>
+                    <div class="item-row"><span style="font-weight:700;">صافي الربح</span> <span style="color:#C5A028;">42,300</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">تحليلات</div>
+                    <div class="item-row">أكثر خدمة ربحاً <span>تنجيد كامل (11,200)</span></div>
+                    <div class="item-row">أكثر عامل إنتاجية <span>محمد (22 سيارة)</span></div>
+                    <div class="item-row">متوسط زمن الإنجاز <span>3.2 ساعة</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">مقارنة مع الشهر الماضي</div>
+                    <div class="item-row">المبيعات <span>▲ 8%</span></div>
+                    <div class="item-row">الأرباح <span>▲ 12%</span></div>
+                </div>
+            </div>
+
+            <!-- ========== صفحة الإعدادات ========== -->
+            <div class="page" id="page-settings">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-user-lock"></i> الصلاحيات</div>
+                    <div class="item-row"><span>مالك</span> <i class="fas fa-check" style="color:#2ecc71;"></i></div>
+                    <div class="item-row"><span>مدير</span> <i class="fas fa-check"></i></div>
+                    <div class="item-row"><span>محاسب</span> <i class="fas fa-check"></i></div>
+                    <div class="item-row"><span>مشرف ورشة</span> <i class="fas fa-check"></i></div>
+                    <div class="item-row"><span>كاشير</span> <i class="fas fa-check"></i></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">الدعم الفني</div>
+                    <div class="item-row"><span>التاريخ الهجري</span> <span>23 شعبان 1447</span></div>
+                    <div class="item-row"><span>الإصدار</span> <span>v2.0.1</span></div>
+                </div>
+            </div>
+
+            <!-- زر سريع عائم -->
+            <div class="fab-container">
+                <button class="btn-gold" id="quickFab"><i class="fas fa-camera"></i> تصوير وبدء أمر</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ربط ملف الجافاسكريبت -->
+<script src="script.js"></script>
+</body>
+</html>
