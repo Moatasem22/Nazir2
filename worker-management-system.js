@@ -1,51 +1,94 @@
+// worker-management-system.js
+
 class Worker {
-    constructor(id, name, role) {
-        this.id = id;
+    constructor(name, role) {
         this.name = name;
         this.role = role;
+        this.profile = {};
+        this.sessions = [];
+        this.projects = [];
+        this.salary = 0;
+        this.attendance = [];
+    }
+
+    // Create or update worker profile
+    updateProfile(details) {
+        this.profile = { ...this.profile, ...details };
+    }
+
+    // Track work sessions
+    addSession(session) {
+        this.sessions.push(session);
+    }
+
+    // Assign project
+    assignProject(project) {
+        this.projects.push(project);
+    }
+
+    // Calculate salary based on hours worked
+    calculateSalary() {
+        const hoursWorked = this.sessions.reduce((total, session) => total + session.hours, 0);
+        this.salary = hoursWorked * this.profile.hourlyRate;
+    }
+
+    // Mark attendance
+    markAttendance(date) {
+        this.attendance.push({ date, status: 'Present' });
+    }
+
+    // Mark absence
+    markAbsence(date) {
+        this.attendance.push({ date, status: 'Absent' });
+    }
+
+    // Generate productivity report
+    generateProductivityReport() {
+        return {
+            name: this.name,
+            role: this.role,
+            totalHoursWorked: this.sessions.reduce((total, session) => total + session.hours, 0),
+            projects: this.projects,
+            attendance: this.attendance
+        };
+    }
+
+    // Analyze performance
+    analyzePerformance() {
+        // Logic for performance analytics
     }
 }
 
-class WorkerManagementSystem {
-    constructor() {
-        this.workers = [];
-    }
-
-    addWorker(id, name, role) {
-        const worker = new Worker(id, name, role);
-        this.workers.push(worker);
-        console.log(`Worker added: ${name}`);
-    }
-
-    removeWorker(id) {
-        this.workers = this.workers.filter(worker => worker.id !== id);
-        console.log(`Worker with ID: ${id} removed`);
-    }
-
-    updateWorker(id, name, role) {
-        const worker = this.workers.find(worker => worker.id === id);
-        if (worker) {
-            worker.name = name;
-            worker.role = role;
-            console.log(`Worker updated: ${name}`);
-        } else {
-            console.log(`Worker with ID: ${id} not found`);
-        }
-    }
-
-    listWorkers() {
-        console.log("Current Workers:");
-        this.workers.forEach(worker => {
-            console.log(`ID: ${worker.id}, Name: ${worker.name}, Role: ${worker.role}`);
-        });
+class WorkSession {
+    constructor(date, hours, project) {
+        this.date = date;
+        this.hours = hours;
+        this.project = project;
     }
 }
 
-// Example Usage
-const system = new WorkerManagementSystem();
-system.addWorker(1, 'Alice', 'Engineer');
-system.addWorker(2, 'Bob', 'Manager');
-system.listWorkers();
-system.updateWorker(1, 'Alice Johnson', 'Senior Engineer');
-system.removeWorker(2);
-system.listWorkers();
+class Project {
+    constructor(name) {
+        this.name = name;
+        this.assignedWorkers = [];
+    }
+
+    // Add worker to project
+    addWorker(worker) {
+        this.assignedWorkers.push(worker);
+        worker.assignProject(this);
+    }
+}
+
+// Example usage
+const worker1 = new Worker('John Doe', 'Developer');
+worker1.updateProfile({ hourlyRate: 20, experience: 5 });
+
+const project1 = new Project('Project Alpha');
+project1.addWorker(worker1);
+
+const session1 = new WorkSession('2026-02-26', 8, project1);
+worker1.addSession(session1);
+worker1.calculateSalary();
+
+console.log(worker1.generateProductivityReport());
